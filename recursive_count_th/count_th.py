@@ -4,7 +4,14 @@ Your function should return a count of how many occurences of ***"th"*** occur w
 Your function must utilize recursion. It cannot contain any loops.
 '''
 def count_th(word):
+    '''If the input is an empty string '''
+    if not word:
+        return 0
     
-    # TBC
+    '''else compare the first 2 letters to th and recursively the rest of the characters'''
+    return (1 if word[0:2]=='th' else 0) + count_th(word[1:])
     
-    pass
+
+
+    
+print(count_th('thereforththth'))
