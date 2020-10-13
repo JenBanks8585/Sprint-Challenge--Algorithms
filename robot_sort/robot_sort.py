@@ -115,22 +115,41 @@ class SortingRobot:
     #    return self._list
         
 
+    #def sort(self):
+    #    """
+    #    Sort the robot's list.
+    #    """
+    #    
+    #    for i in range(len(self._list)):
+    #        already_sorted = True
+#
+    #        for j in range(len(self._list) - i - 1):
+    #            if self._list[j] > self._list[j + 1]:
+    #                self._list[j], self._list[j + 1] = self._list[j + 1], self._list[j]
+    #                already_sorted = False
+    #        if already_sorted:
+    #            break
+#
+    #    return self._list
+
     def sort(self):
-        """
-        Sort the robot's list.
-        """
         
-        for i in range(len(self._list)):
-            already_sorted = True
+        # original item is None, and if there are more items, move to the right
+        while self.can_move_right():
+            self.swap_item()
 
-            for j in range(len(self._list) - i - 1):
-                if self._list[j] > self._list[j + 1]:
-                    self._list[j], self._list[j + 1] = self._list[j + 1], self._list[j]
-                    already_sorted = False
-            if already_sorted:
-                break
+            # while can move to the right, if item held is larger, swap it with card on position
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() == 1:
+                  self.swap_item()
+             # the card in position, as long as it is not a None card, move to the left
+            while self.compare_item() is not None:
+                self.move_left()
 
-        return self._list
+            # drop item and move for next iteration
+            self.swap_item()
+            self.move_right()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
@@ -140,4 +159,5 @@ if __name__ == "__main__":
     m = [5, 1, 4]
     robot = SortingRobot(l)
 
-    print(robot.sort())
+    robot.sort()
+    print(robot._list)
